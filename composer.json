@@ -1,0 +1,12 @@
+{
+    "name": "shmurakami/swagger-generator",
+    "description": "generate swagger yaml/json from API response json",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shaka",
+            "email": "shmurakami1104@gmail.com"
+        }
+    ],
+    "require": {}
+}

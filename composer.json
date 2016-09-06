@@ -8,5 +8,18 @@
             "email": "shmurakami1104@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": ">=5.0.0"
+    },
+    "autoload": {
+      "psr-4": {
+        "shmurakami\\SwaggerGenerator\\": "src/SwaggerGenerator/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "shmurakami\\SwaggerGenerator\\Tests\\": "tests/SwaggerGenerator/"
+      }
+    }
 }

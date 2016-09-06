@@ -1,16 +1,17 @@
 <?php
 namespace shmurakami\SwaggerGenerator\Generators;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class YamlGenerator
  * @package shmurakami\SwaggerGenerator\Generator
- *
- * TODO ArrayからYamlを生成するライブラリはあるはずなので、そっちに流す方が絶対良い
  */
 class YamlGenerator implements GeneratorInterface
 {
 
     public function generate($values)
     {
+        // depend to symfony\yaml
+        return Yaml::dump($values);
     }
 }

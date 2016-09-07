@@ -26,10 +26,23 @@ if (!$inputOption) {
     exit(1);
 }
 
-$formatOption = isset($arguments['f']) ? $arguments['f'] : isset($arguments['format']) ? $arguments['format'] : null;
+$formatOption = null;
+if (isset($arguments['f'])) {
+    $formatOption = $arguments['f'];
+} else if (isset($arguments['format'])) {
+    $formatOption = $arguments['format'];
+}
+
+$outputOption = null;
+if (isset($arguments['o'])) {
+    $outputOption = $arguments['o'];
+} else if (isset($arguments['output'])) {
+    $outputOption = $arguments['output'];
+}
 
 $generator = new \shmurakami\SwaggerGenerator\SwaggerGenerator();
 $generator->setFormat(getFormatValue($formatOption))
+    ->setOutput(getOutputValue($outputOption))
     ->generate($input);
 
 function getInputPath($inputOption)
@@ -53,6 +66,14 @@ function getFormatValue($format)
         return FormatterInterface::TYPE_JSON;
     }
     return FormatterInterface::TYPE_YAML;
+}
+
+function getOutputValue($output)
+{
+    if (!$output) {
+        return null;
+    }
+    return $output;
 }
 
 function showUsage()

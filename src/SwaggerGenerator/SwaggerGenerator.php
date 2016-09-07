@@ -4,6 +4,7 @@ namespace shmurakami\SwaggerGenerator;
 use shmurakami\SwaggerGenerator\Formatters\FormatterInterface;
 use shmurakami\SwaggerGenerator\Formatters\JsonFormatter;
 use shmurakami\SwaggerGenerator\Formatters\YamlFormatter;
+use shmurakami\SwaggerGenerator\Outputs\FileOutput;
 use shmurakami\SwaggerGenerator\Outputs\OutputInterface;
 use shmurakami\SwaggerGenerator\Outputs\StandardOutput;
 
@@ -15,7 +16,7 @@ class SwaggerGenerator
     /** @var string */
     private $format;
 
-    /** @var OutputInterface */
+    /** @var string output file path */
     private $output;
 
     public function __construct()
@@ -28,7 +29,7 @@ class SwaggerGenerator
         $parsedValues = $this->parser->parse($input);
 
         // StandardOutput is only supported so far.
-        $this->getOutput()->output($this->createFormatter()->generate($parsedValues));
+        $this->createOutput()->output($this->createFormatter()->generate($parsedValues));
     }
 
     /**
@@ -52,7 +53,13 @@ class SwaggerGenerator
         return new YamlFormatter();
     }
 
-    public function setOutput(OutputInterface $output)
+    /**
+     * TODO formatと渡す値の扱いが全然違うしoutput側のinterfaceが統一されてない
+     *
+     * @param string $output
+     * @return $this
+     */
+    public function setOutput($output)
     {
         $this->output = $output;
         return $this;
@@ -61,11 +68,13 @@ class SwaggerGenerator
     /**
      * @return OutputInterface
      */
-    private function getOutput()
+    private function createOutput()
     {
         if (is_null($this->output)) {
             return new StandardOutput();
         }
-        return $this->output;
+
+        $fileOutput = new FileOutput($this->output);
+        return $fileOutput;
     }
 }

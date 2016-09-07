@@ -23,5 +23,8 @@
       "psr-4": {
         "shmurakami\\SwaggerGenerator\\Tests\\": "tests/SwaggerGenerator/"
       }
-    }
+    },
+    "bin": [
+      "bin/parse"
+    ]
 }

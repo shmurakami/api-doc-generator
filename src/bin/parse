@@ -1,0 +1,77 @@
+#!/usr/bin/env php
+<?php
+
+use shmurakami\SwaggerGenerator\Formatters\FormatterInterface;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+// option
+$arguments = getopt('i:f:o:h::', ['input:', 'format:', 'output:', 'help::' ]);
+
+if (isset($arguments['h']) || isset($arguments['help'])) {
+    showUsage();
+    exit(0);
+}
+
+$inputOption = null;
+if (isset($arguments['i'])) {
+    $inputOption = $arguments['i'];
+} else if ($arguments['input']) {
+    $inputOption = $arguments['input'];
+}
+
+$input = getInputPath($inputOption);
+if (!$inputOption) {
+    showUsage();
+    exit(1);
+}
+
+$formatOption = isset($arguments['f']) ? $arguments['f'] : isset($arguments['format']) ? $arguments['format'] : null;
+
+$generator = new \shmurakami\SwaggerGenerator\SwaggerGenerator();
+$generator->setFormat(getFormatValue($formatOption))
+    ->generate($input);
+
+function getInputPath($inputOption)
+{
+    if (!$inputOption) {
+        showError('input is empty');
+        return null;
+    }
+
+    if (!is_file($inputOption)) {
+        showError('input path file does not exist');
+        return null;
+    }
+
+    return file_get_contents($inputOption);
+}
+
+function getFormatValue($format)
+{
+    if ($format === FormatterInterface::TYPE_JSON) {
+        return FormatterInterface::TYPE_JSON;
+    }
+    return FormatterInterface::TYPE_YAML;
+}
+
+function showUsage()
+{
+    $usage = <<<EOF
+
+Usage: php parse.php
+
+-i Input file path to parse.
+-f Output format. pass yaml or json. otherwise ignored.
+-o File path to output. If not passed output to STDOUT
+-h Show this message
+
+EOF;
+    echo $usage . PHP_EOL;
+}
+
+function showError($error)
+{
+    fputs(STDERR, $error . PHP_EOL);
+}
+

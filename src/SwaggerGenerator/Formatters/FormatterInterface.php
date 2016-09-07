@@ -1,7 +1,7 @@
 <?php
-namespace shmurakami\SwaggerGenerator\Generators;
+namespace shmurakami\SwaggerGenerator\Formatters;
 
-interface GeneratorInterface
+interface FormatterInterface
 {
     const TYPE_YAML = 'yaml';
     const TYPE_JSON = 'json';

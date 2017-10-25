@@ -24,6 +24,11 @@
         "shmurakami\\ApiDocGenerator\\Tests\\": "tests/ApiDocGenerator/"
       }
     },
+    "scripts": {
+      "test": [
+        "phpunit tests"
+      ]
+    },
     "bin": [
       "bin/parse"
     ]

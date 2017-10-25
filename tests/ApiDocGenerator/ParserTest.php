@@ -1,9 +1,10 @@
 <?php
-namespace shmurakami\ApiDocGenerator\Tests;
+namespace shmurakami\ApiDocGenerator\Tests\Parsers;
 
+use PHPUnit_Framework_TestCase;
 use shmurakami\ApiDocGenerator\Parsers\SwaggerParser;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends PHPUnit_Framework_TestCase
 {
     /** @var \shmurakami\ApiDocGenerator\Parsers\SwaggerParser */
     private $parser;

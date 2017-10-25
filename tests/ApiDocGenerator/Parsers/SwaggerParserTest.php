@@ -4,7 +4,7 @@ namespace shmurakami\ApiDocGenerator\Tests\Parsers;
 use PHPUnit_Framework_TestCase;
 use shmurakami\ApiDocGenerator\Parsers\SwaggerParser;
 
-class ParserTest extends PHPUnit_Framework_TestCase
+class SwaggerParserTest extends PHPUnit_Framework_TestCase
 {
     /** @var \shmurakami\ApiDocGenerator\Parsers\SwaggerParser */
     private $parser;

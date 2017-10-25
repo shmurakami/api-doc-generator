@@ -21,12 +21,12 @@ class SwaggerParserTest extends PHPUnit_Framework_TestCase
     public function testParse_invalidArgument()
     {
         $invalidInput = [];
-        $this->parser->parse($invalidInput);
+        $this->parser->parse([], $invalidInput);
     }
 
     public function testParse()
     {
-        $request = (object)[
+        $response = (object)[
             'bool'   => true,
             'int'    => 0,
             'string' => 'string',
@@ -84,12 +84,12 @@ class SwaggerParserTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->assertSame($expect, $this->parser->parse($request));
+        $this->assertSame($expect, $this->parser->parse([], $response));
     }
 
     public function testParse_array()
     {
-        $request = [
+        $response = [
             (object)[
                 'id'            => 1,
                 'name'          => 'name_val',
@@ -133,7 +133,7 @@ class SwaggerParserTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->assertSame($expect, $this->parser->parse($request));
+        $this->assertSame($expect, $this->parser->parse([], $response));
 
     }
 

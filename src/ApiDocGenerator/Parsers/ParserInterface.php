@@ -5,8 +5,9 @@ interface ParserInterface
 {
     /**
      * @param $request
+     * @param $response
      * @return mixed
      */
-    public function parse($request);
+    public function parse($request, $response);
 
 }

@@ -48,7 +48,7 @@ if (isset($arguments['o'])) {
 $generator = new ApiDocGenerator();
 $generator->setFormat(getFormatter($formatOption))
     ->setOutput(getOutput($outputOption))
-    ->generate($input);
+    ->generate($input['request'], $input['response']);
 
 function getInputPath($inputOption)
 {

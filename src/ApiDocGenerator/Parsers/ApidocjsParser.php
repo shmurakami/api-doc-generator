@@ -8,7 +8,7 @@ class ApidocjsParser implements ParserInterface
      * @param $request
      * @return mixed
      */
-    public function parse($request)
+    public function parse($request, $response)
     {
         return [
             'request' => $this->parseRequest($request),
@@ -18,15 +18,43 @@ class ApidocjsParser implements ParserInterface
 
     private function parseRequest($request)
     {
+        $parsed = $this->parseSchema($request);
+
+
+//        ['type' => 'Boolean', 'name' => 'bool',],
+//                ['type' => 'Number', 'name' => 'int',],
+//                ['type' => 'String', 'name' => 'string',],
+//                ['type' => 'Number', 'name' => 'float',],
+//                ['type' => 'Number[]', 'name' => 'array',],
+//                ['type' => 'Object', 'name' => 'object',],
+//                ['type' => 'String', 'name' => 'object.key',],
+//                ['type' => 'Object[]', 'name' => 'nested',],
+//                ['type' => 'Number', 'name' => 'nested.int',],
     }
 
     private function parseResponse($responses)
     {
-
+        return [];
     }
 
-    private function parseResponseSchema($objects)
+    private function parseSchema($schema)
     {
+        switch (true) {
+            case is_object($schema):
+                return $this->parseObject($schema);
+            case is_array($schema):
+                return $this->parseArray($schema);
+            case is_int($schema):
+                return $this->parseInt($schema);
+            case is_float($schema):
+                return $this->parseFloat($schema);
+            case is_string($schema):
+                return $this->parseString($schema);
+            case is_bool($schema):
+                return $this->parseBool($schema);
+            default:
+                return [];
+        }
     }
 
     private function parseObject($responses)

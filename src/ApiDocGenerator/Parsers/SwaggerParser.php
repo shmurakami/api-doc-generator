@@ -10,15 +10,15 @@ class SwaggerParser implements ParserInterface
      * @param $request
      * @return mixed
      */
-    public function parse($request)
+    public function parse($request, $response)
     {
-        if (!$request) {
+        if (!$response) {
             throw new InvalidValueException('failed to parse passed values');
         }
 
         return [
             'request' => $this->parseRequest($request),
-            'responses' => $this->parseResponse($request),
+            'responses' => $this->parseResponse($response),
         ];
     }
 

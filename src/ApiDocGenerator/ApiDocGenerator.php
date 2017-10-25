@@ -4,42 +4,65 @@ namespace shmurakami\ApiDocGenerator;
 use shmurakami\ApiDocGenerator\Formatters\FormatterInterface;
 use shmurakami\ApiDocGenerator\Formatters\JsonFormatter;
 use shmurakami\ApiDocGenerator\Formatters\YamlFormatter;
-use shmurakami\ApiDocGenerator\Outputs\FileOutput;
 use shmurakami\ApiDocGenerator\Outputs\OutputInterface;
 use shmurakami\ApiDocGenerator\Outputs\StandardOutput;
+use shmurakami\ApiDocGenerator\Parsers\ParserInterface;
+use shmurakami\ApiDocGenerator\Parsers\SwaggerParser;
 
 class ApiDocGenerator
 {
-    /** @var Parser */
+    /**
+     * @var ParserInterface
+     */
     private $parser;
 
-    /** @var string */
+    /**
+     * @var FormatterInterface
+     */
     private $format;
 
-    /** @var string output file path */
+    /**
+     * @var OutputInterface
+     */
     private $output;
-
-    public function __construct()
-    {
-        $this->parser = new Parser();
-    }
 
     public function generate($input)
     {
-        $parsedValues = $this->parser->parse($input);
+        $parsedValues = $this->getParser()->parse($input);
 
         // StandardOutput is only supported so far.
-        $this->createOutput()->output($this->createFormatter()->generate($parsedValues));
+        $this->getOutput()->output($this->createFormatter()->generate($parsedValues));
     }
 
     /**
-     * @param string $format
+     * @param FormatterInterface $format
      * @return $this
      */
-    public function setFormat($format)
+    public function setFormat(FormatterInterface $format)
     {
         $this->format = $format;
         return $this;
+    }
+
+    /**
+     * @param ParserInterface $parser
+     * @return $this
+     */
+    public function setParser(ParserInterface $parser)
+    {
+        $this->parser = $parser;
+        return $this;
+    }
+
+    /**
+     * @return ParserInterface
+     */
+    public function getParser()
+    {
+        if ($this->parser) {
+            return $this->parser;
+        }
+        return new SwaggerParser();
     }
 
     /**
@@ -54,12 +77,10 @@ class ApiDocGenerator
     }
 
     /**
-     * TODO formatと渡す値の扱いが全然違うしoutput側のinterfaceが統一されてない
-     *
      * @param string $output
      * @return $this
      */
-    public function setOutput($output)
+    public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
         return $this;
@@ -68,13 +89,11 @@ class ApiDocGenerator
     /**
      * @return OutputInterface
      */
-    private function createOutput()
+    private function getOutput()
     {
-        if (is_null($this->output)) {
-            return new StandardOutput();
+        if ($this->output) {
+            return $this->output;
         }
-
-        $fileOutput = new FileOutput($this->output);
-        return $fileOutput;
+        return new StandardOutput();
     }
 }

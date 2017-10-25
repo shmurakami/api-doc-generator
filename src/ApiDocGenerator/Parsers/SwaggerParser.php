@@ -1,28 +1,34 @@
 <?php
-namespace shmurakami\ApiDocGenerator;
+namespace shmurakami\ApiDocGenerator\Parsers;
 
 use shmurakami\ApiDocGenerator\Exceptions\InvalidValueException;
 
-class Parser
+class SwaggerParser implements ParserInterface
 {
 
     /**
-     * @param $jsonInput
+     * @param $request
      * @return mixed
      */
-    public function parse($jsonInput)
+    public function parse($request)
     {
-        $parsedInput = json_decode($jsonInput);
-        if (is_null($parsedInput)) {
+        if (!$request) {
             throw new InvalidValueException('failed to parse passed values');
         }
 
         return [
-            'responses' => $this->parseResponses($parsedInput),
+            'request' => $this->parseRequest($request),
+            'responses' => $this->parseResponse($request),
         ];
     }
 
-    private function parseResponses($responses)
+    private function parseRequest($request)
+    {
+        // TODO implement later
+        return [];
+    }
+
+    private function parseResponse($responses)
     {
         return [
             200 => [

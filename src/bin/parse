@@ -1,7 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-use shmurakami\SwaggerGenerator\Formatters\FormatterInterface;
+use shmurakami\ApiDocGenerator\ApiDocGenerator;
+use shmurakami\ApiDocGenerator\Formatters\FormatterInterface;
+use shmurakami\ApiDocGenerator\Formatters\JsonFormatter;
+use shmurakami\ApiDocGenerator\Formatters\YamlFormatter;
+use shmurakami\ApiDocGenerator\Outputs\FileOutput;
+use shmurakami\ApiDocGenerator\Outputs\StandardOutput;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -40,9 +45,9 @@ if (isset($arguments['o'])) {
     $outputOption = $arguments['output'];
 }
 
-$generator = new \shmurakami\SwaggerGenerator\ApiDocGenerator();
-$generator->setFormat(getFormatValue($formatOption))
-    ->setOutput(getOutputValue($outputOption))
+$generator = new ApiDocGenerator();
+$generator->setFormat(getFormatter($formatOption))
+    ->setOutput(getOutput($outputOption))
     ->generate($input);
 
 function getInputPath($inputOption)
@@ -57,23 +62,23 @@ function getInputPath($inputOption)
         return null;
     }
 
-    return file_get_contents($inputOption);
+    return json_decode(file_get_contents($inputOption));
 }
 
-function getFormatValue($format)
+function getFormatter($format)
 {
     if ($format === FormatterInterface::TYPE_JSON) {
-        return FormatterInterface::TYPE_JSON;
+        return new JsonFormatter();
     }
-    return FormatterInterface::TYPE_YAML;
+    return new YamlFormatter();
 }
 
-function getOutputValue($output)
+function getOutput($output)
 {
-    if (!$output) {
-        return null;
+    if ($output) {
+        return new FileOutput($output);
     }
-    return $output;
+    return new StandardOutput();
 }
 
 function showUsage()
@@ -93,6 +98,6 @@ EOF;
 
 function showError($error)
 {
-    fputs(STDERR, $error . PHP_EOL);
+    fwrite(STDERR, $error . PHP_EOL);
 }
 

@@ -1,5 +1,5 @@
 <?php
-namespace shmurakami\SwaggerGenerator\Formatters;
+namespace shmurakami\ApiDocGenerator\Formatters;
 
 interface FormatterInterface
 {

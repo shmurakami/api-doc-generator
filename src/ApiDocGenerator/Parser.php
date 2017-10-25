@@ -1,7 +1,7 @@
 <?php
-namespace shmurakami\SwaggerGenerator;
+namespace shmurakami\ApiDocGenerator;
 
-use shmurakami\SwaggerGenerator\Exceptions\InvalidValueException;
+use shmurakami\ApiDocGenerator\Exceptions\InvalidValueException;
 
 class Parser
 {

@@ -1,6 +1,6 @@
 {
-    "name": "shmurakami/swagger-generator",
-    "description": "generate swagger yaml/json from API response json",
+    "name": "shmurakami/api-doc-generator",
+    "description": "generate swagger yaml/json or doc comment for apidocjs from API response json",
     "license": "MIT",
     "authors": [
         {
@@ -16,12 +16,12 @@
     },
     "autoload": {
       "psr-4": {
-        "shmurakami\\SwaggerGenerator\\": "src/SwaggerGenerator/"
+        "shmurakami\\ApiDocGenerator\\": "src/ApiDocGenerator/"
       }
     },
     "autoload-dev": {
       "psr-4": {
-        "shmurakami\\SwaggerGenerator\\Tests\\": "tests/SwaggerGenerator/"
+        "shmurakami\\ApiDocGenerator\\Tests\\": "tests/ApiDocGenerator/"
       }
     },
     "bin": [

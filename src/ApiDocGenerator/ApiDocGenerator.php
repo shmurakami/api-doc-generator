@@ -1,14 +1,14 @@
 <?php
-namespace shmurakami\SwaggerGenerator;
+namespace shmurakami\ApiDocGenerator;
 
-use shmurakami\SwaggerGenerator\Formatters\FormatterInterface;
-use shmurakami\SwaggerGenerator\Formatters\JsonFormatter;
-use shmurakami\SwaggerGenerator\Formatters\YamlFormatter;
-use shmurakami\SwaggerGenerator\Outputs\FileOutput;
-use shmurakami\SwaggerGenerator\Outputs\OutputInterface;
-use shmurakami\SwaggerGenerator\Outputs\StandardOutput;
+use shmurakami\ApiDocGenerator\Formatters\FormatterInterface;
+use shmurakami\ApiDocGenerator\Formatters\JsonFormatter;
+use shmurakami\ApiDocGenerator\Formatters\YamlFormatter;
+use shmurakami\ApiDocGenerator\Outputs\FileOutput;
+use shmurakami\ApiDocGenerator\Outputs\OutputInterface;
+use shmurakami\ApiDocGenerator\Outputs\StandardOutput;
 
-class SwaggerGenerator
+class ApiDocGenerator
 {
     /** @var Parser */
     private $parser;

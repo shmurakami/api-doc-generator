@@ -40,7 +40,7 @@ if (isset($arguments['o'])) {
     $outputOption = $arguments['output'];
 }
 
-$generator = new \shmurakami\SwaggerGenerator\SwaggerGenerator();
+$generator = new \shmurakami\SwaggerGenerator\ApiDocGenerator();
 $generator->setFormat(getFormatValue($formatOption))
     ->setOutput(getOutputValue($outputOption))
     ->generate($input);

@@ -1,5 +1,5 @@
 <?php
-namespace shmurakami\SwaggerGenerator\Exceptions;
+namespace shmurakami\ApiDocGenerator\Exceptions;
 
 class InvalidValueException extends \InvalidArgumentException
 {

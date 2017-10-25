@@ -1,11 +1,11 @@
 <?php
-namespace shmurakami\SwaggerGenerator\Tests;
+namespace shmurakami\ApiDocGenerator\Tests;
 
-use shmurakami\SwaggerGenerator\Parser;
+use shmurakami\ApiDocGenerator\Parser;
 
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \shmurakami\SwaggerGenerator\Parser */
+    /** @var \shmurakami\ApiDocGenerator\Parser */
     private $parser;
 
     protected function setUp()
@@ -15,15 +15,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \shmurakami\SwaggerGenerator\Exceptions\InvalidValueException
+     * @expectedException \shmurakami\ApiDocGenerator\Exceptions\InvalidValueException
      */
-    function testParse_invalidArgument()
+    public function testParse_invalidArgument()
     {
         $invalidInput = 'invalid';
         $this->parser->parse($invalidInput);
     }
 
-    function testParse()
+    public function testParse()
     {
         $json = '{"bool":true,"int":0,"string":"string","float":0.01,"array":[0,1,2],"object":{"key":"value"},"nested":[{"int":1},{"int":2}]}';
 
@@ -68,7 +68,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expect, $this->parser->parse($json));
     }
 
-    function testParse_array()
+    public function testParse_array()
     {
         $json = '[{"id":1,"name":"name_val","nested_object":{"nested_bool":true}},{"id":2,"name":"name_val2","nested_object":{"nested_bool":false}}]';
 

@@ -1,5 +1,5 @@
 <?php
-namespace shmurakami\SwaggerGenerator\Outputs;
+namespace shmurakami\ApiDocGenerator\Outputs;
 
 interface OutputInterface
 {

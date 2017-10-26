@@ -31,7 +31,7 @@ class ApiDocGenerator
         $parsedValues = $this->getParser()->parse($request, $response);
 
         // StandardOutput is only supported so far.
-        $this->getOutput()->output($this->createFormatter()->generate($parsedValues));
+        $this->getOutput()->output($this->createFormatter()->format($parsedValues));
     }
 
     /**

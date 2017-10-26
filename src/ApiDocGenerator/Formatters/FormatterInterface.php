@@ -6,6 +6,10 @@ interface FormatterInterface
     const TYPE_YAML = 'yaml';
     const TYPE_JSON = 'json';
 
-    public function generate($values);
+    /**
+     * @param $values
+     * @return string
+     */
+    public function format($values);
 
 }

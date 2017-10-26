@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 class YamlFormatter implements FormatterInterface
 {
 
-    public function generate($values)
+    public function format($values)
     {
         // depend to symfony\yaml
         $depth = $this->getDepth($values);

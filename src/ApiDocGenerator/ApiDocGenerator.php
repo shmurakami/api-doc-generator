@@ -31,7 +31,7 @@ class ApiDocGenerator
         $parsedValues = $this->getParser()->parse($request, $response);
 
         // StandardOutput is only supported so far.
-        $this->getOutput()->output($this->createFormatter()->format($parsedValues));
+        $this->getOutput()->output($this->getFormatter()->format($parsedValues));
     }
 
     /**
@@ -68,12 +68,12 @@ class ApiDocGenerator
     /**
      * @return FormatterInterface
      */
-    private function createFormatter()
+    private function getFormatter()
     {
-        if ($this->format === FormatterInterface::TYPE_JSON) {
-            return new JsonFormatter();
+        if ($this->format) {
+            return $this->format;
         }
-        return new YamlFormatter();
+        return new JsonFormatter();
     }
 
     /**

@@ -12,7 +12,7 @@ class ApidocjsParser implements ParserInterface
     {
         return [
             'request' => $this->parseRequest($request),
-            'response' => $this->parseResponse($request),
+            'response' => $this->parseResponse($response),
         ];
     }
 

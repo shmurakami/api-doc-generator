@@ -47,6 +47,7 @@ class ApidocjsParserTest extends PHPUnit_Framework_TestCase
             'array'  => [0, 1, 2,],
             'object' => (object)[
                 'key' => 'value',
+                'foo' => 0,
             ],
             'nested' => [
                 (object)[

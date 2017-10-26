@@ -107,8 +107,10 @@ class ApidocjsParser implements ParserInterface
         $item = array_shift($array);
         if ($item === null) {
             return [
-                'name' => $name,
-                'type' => 'Array',
+                [
+                    'name' => $name,
+                    'type' => 'Array',
+                ],
             ];
         }
 

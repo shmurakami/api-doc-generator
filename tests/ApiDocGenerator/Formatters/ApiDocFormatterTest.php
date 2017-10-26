@@ -1,64 +1,24 @@
 <?php
-namespace shmurakami\ApiDocGenerator\Tests\Parsers;
+namespace shmurakami\ApiDocGenerator\Formatters;
 
 use PHPUnit_Framework_TestCase;
-use shmurakami\ApiDocGenerator\Parsers\ApidocjsParser;
 
-class ApidocjsParserTest extends PHPUnit_Framework_TestCase
+class ApiDocFormatterTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var ApidocjsParser
+     * @var ApiDocFormatter
      */
-    private $parser;
+    private $formatter;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->parser = new ApidocjsParser();
+        $this->formatter = new ApiDocFormatter();
     }
 
-    public function testParse()
+    public function testFormat()
     {
-        $request = [
-            'bool'   => true,
-            'int'    => 0,
-            'string' => 'string',
-            'float'  => 0.01,
-            'array'  => [0, 1, 2,],
-            'object' => (object)[
-                'key' => 'value',
-                'foo' => 0,
-            ],
-            'nested' => [
-                (object)[
-                    'int' => 1,
-                ],
-                (object)[
-                    'int' => 2,
-                ],
-            ],
-        ];
-
-        $response = (object)[
-            'bool'   => true,
-            'int'    => 0,
-            'string' => 'string',
-            'float'  => 0.01,
-            'array'  => [0, 1, 2,],
-            'object' => (object)[
-                'key' => 'value',
-            ],
-            'nested' => [
-                (object)[
-                    'int' => 1,
-                ],
-                (object)[
-                    'int' => 2,
-                ],
-            ],
-        ];
-
-        $expect = [
+        $values = [
             'request'   => [
                 ['type' => 'Boolean', 'name' => 'bool',],
                 ['type' => 'Number', 'name' => 'int',],
@@ -85,7 +45,33 @@ class ApidocjsParserTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $this->assertEquals($expect, $this->parser->parse($request, $response));
+        // TODO have to support method, url, etc
+        $expect = implode("\n", [
+            '/**',
+            ' * @apiParam {Boolean} bool ',
+            ' * @apiParam {Number} int ',
+            ' * @apiParam {String} string ',
+            ' * @apiParam {Number} float ',
+            ' * @apiParam {Number[]} array ',
+            ' * @apiParam {Object} object ',
+            ' * @apiParam {String} object.key ',
+            ' * @apiParam {Number} object.foo ',
+            ' * @apiParam {Object[]} nested ',
+            ' * @apiParam {Number} nested.int ',
+            ' * ',
+            ' * @apiSuccess {Boolean} bool ',
+            ' * @apiSuccess {Number} int ',
+            ' * @apiSuccess {String} string ',
+            ' * @apiSuccess {Number} float ',
+            ' * @apiSuccess {Number[]} array ',
+            ' * @apiSuccess {Object} object ',
+            ' * @apiSuccess {String} object.key ',
+            ' * @apiSuccess {Number} object.foo ',
+            ' * @apiSuccess {Object[]} nested ',
+            ' * @apiSuccess {Number} nested.int ',
+            ' */',
+        ]);
+        $this->assertEquals($expect, $this->formatter->format($values));
     }
 
 }

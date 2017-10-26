@@ -8,7 +8,7 @@ namespace shmurakami\ApiDocGenerator\Formatters;
 class JsonFormatter implements FormatterInterface
 {
 
-    public function generate($values)
+    public function format($values)
     {
     }
 }
